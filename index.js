@@ -1,9 +1,9 @@
 import express from 'express';
 import path from 'path';
+import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import auth from './routes/auth.js'
-import mongoose from 'mongoose';
 import users from './routes/users.js'
 import { Server } from 'socket.io';
 import CHAT from "./models/chat.js"
@@ -16,7 +16,8 @@ dotenv.config();
 const __dirname = path.dirname(import.meta.url);
 const __filename = path.basename(import.meta.url);
 
-mongoose.connect(process.env.MONGOURL).then(() => {
+mongoose.connect(process.env.MONGOURL).then((res) => {
+    console.log(res);
     console.log("Mongodb connection established");
 }).catch(() => {
     console.log("Mongodb connection error"); 
