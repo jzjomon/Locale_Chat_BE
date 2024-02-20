@@ -20,7 +20,7 @@ const PORT = process.env.PORT || 8000;
 mongoose.connect(process.env.MONGOURL).then(() => {
     console.log("Mongodb connection established");
 }).catch(() => {
-    console.log("Mongodb connection error");
+    console.log("Mongodb connection error"); 
 })
 
 app.use(express.json());
