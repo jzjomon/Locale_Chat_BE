@@ -11,6 +11,7 @@ export const signUp = async (req, res) => {
             bcrypt.hash(password, parseInt(process.env.SALT), async (err, hash) => {
                 if (err) return res.status(400).json({ message: "hashing error" });
                 const result = await USER({ firstname, lastname, email, location, password: hash }).save();
+                console.log(result);
                 if (!result) return res.status(400).json({ message: "cannot save the user details" });
                 res.status(200).json({ message: "successfully saved the user details" });
             })
