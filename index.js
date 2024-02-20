@@ -15,7 +15,6 @@ dotenv.config();
 
 const __dirname = path.dirname(import.meta.url);
 const __filename = path.basename(import.meta.url);
-const PORT = process.env.PORT || 8000;
 
 mongoose.connect(process.env.MONGOURL).then(() => {
     console.log("Mongodb connection established");
@@ -29,8 +28,8 @@ app.use(cors());
 app.use("/", auth);
 app.use("/users", users)
 
-const expressServer = app.listen(PORT, () => {
-    console.log(`listening on ${PORT}`);
+const expressServer = app.listen(process.env.PORT, () => {
+    console.log(`listening on ${process.env.PORT}`);
 });
 
 const io = new Server(expressServer, {
