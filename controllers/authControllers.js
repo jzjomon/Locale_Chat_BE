@@ -22,21 +22,22 @@ export const signUp = async (req, res) => {
     }
 }
 
-export const signIn = async (req, res) => {
+export const signIn = (req, res) => {
     try {
         const { email, password } = req.body;
         if (!email || !password) return res.status(400).json({ message: "validation failed" });
-        USER.findOne({ email }).then((result) => {
-            bcrypt.compare(password, result.password, (err, result) => {
+        USER.findOne({ email }).then((user) => {
+            if (!user) return res.status(400).json({ message: "You don't have an account. Please sign up !" });
+            bcrypt.compare(password, user.password, (err, result) => {
                 if (err) return res.status(400).json({ message: "bcrypt compare failed" });
                 if (!result) return res.status(400).json({ message: "incorrect password" });
-                jwt.sign({ id: exist._id }, process.env.JWT_SECRET, (err, token) => {
+                jwt.sign({ id: user._id }, process.env.JWT_SECRET, (err, token) => {
                     if (err) return res.status(400).json({ message: "Something went wrong !" });
-                    res.status(200).json({ message: "success", data: exist, token });
+                    res.status(200).json({ message: "success", data: user, token });
                 })
             })
         }).catch((err) => {
-            res.status(400).json({ message: "You don't have an account. Please sign up !" });
+            res.status(400).json({ message: "Something went wrong !"});
         });
 
     } catch (error) {
