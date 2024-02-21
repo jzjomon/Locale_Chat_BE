@@ -13,7 +13,6 @@ import { dbConnect } from './config/dbConfig.js';
 
 const app = express();
 dotenv.config();
-dbConnect();
 
 const __dirname = path.dirname(import.meta.url);
 const __filename = path.basename(import.meta.url);
@@ -21,6 +20,7 @@ const __filename = path.basename(import.meta.url);
 
 app.use(express.json());
 app.use(cors());
+dbConnect();
 
 app.use("/", auth);
 app.use("/users", users)
@@ -31,7 +31,7 @@ const expressServer = app.listen(process.env.PORT, () => {
 
 const io = new Server(expressServer, {
     cors: {
-        origin: process.env.CLIENT_URL
+        origin: `${process.env.CLIENT_URL}`
     }
 })
 

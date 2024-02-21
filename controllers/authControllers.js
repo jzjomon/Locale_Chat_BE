@@ -31,7 +31,7 @@ export const signIn = (req, res) => {
             bcrypt.compare(password, user.password, (err, result) => {
                 if (err) return res.status(400).json({ message: "bcrypt compare failed" });
                 if (!result) return res.status(400).json({ message: "incorrect password" });
-                jwt.sign({ id: user._id }, process.env.JWT_SECRET, (err, token) => {
+                jwt.sign({ id: user._id }, `${process.env.JWT_SECRET}`, (err, token) => {
                     if (err) return res.status(400).json({ message: "Something went wrong !" });
                     res.status(200).json({ message: "success", data: user, token });
                 })
