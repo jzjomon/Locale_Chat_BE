@@ -12,7 +12,7 @@ export const signUp = async (req, res) => {
                 if (err) return res.status(400).json({ message: "hashing error" });
                 const result = await USER({ firstname, lastname, email, location, password: hash }).save();
                 if (!result) return res.status(400).json({ message: "cannot save the user details" });
-                res.status(200).json({ message: "successfully saved the user details" });
+                res.status(200).json({ message: "successfully saved the user details", data :result });
             })
         } else {
             return res.status(400).json({ message: "validation error" });
