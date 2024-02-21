@@ -13,11 +13,11 @@ import { dbConnect } from './config/dbConfig.js';
 
 const app = express();
 dotenv.config();
+dbConnect();
 
 const __dirname = path.dirname(import.meta.url);
 const __filename = path.basename(import.meta.url);
 
-dbConnect();
 
 app.use(express.json());
 app.use(cors());
