@@ -8,6 +8,7 @@ import users from './routes/users.js'
 import { Server } from 'socket.io';
 import CHAT from "./models/chat.js"
 import USER from './models/user.js'
+import { dbConnect } from './config/dbConfig.js';
 
 
 const app = express();
@@ -16,12 +17,7 @@ dotenv.config();
 const __dirname = path.dirname(import.meta.url);
 const __filename = path.basename(import.meta.url);
 
-mongoose.connect(process.env.MONGOURL).then((res) => {
-    console.log(res);
-    console.log("Mongodb connection established");
-}).catch(() => {
-    console.log("Mongodb connection error"); 
-})
+dbConnect();
 
 app.use(express.json());
 app.use(cors());
