@@ -31,7 +31,7 @@ const expressServer = app.listen(process.env.PORT, () => {
 
 const io = new Server(expressServer, {
     cors: {
-        origin: `${process.env.CLIENT_URL}`
+        origin : "*",
     }
 })
 
