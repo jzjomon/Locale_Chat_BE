@@ -69,7 +69,8 @@ io.on("connection", (socket) => {
     
     socket.on("disconnect", async (id) => {
         let currentUser = onlineUsers.filter(users => users.socketId === socket.id);
-        if (currentUser.length > 0) await USER.findOneAndUpdate({ _id : currentUser[0].userId }, { lastOnline : new Date().toLocaleTimeString() })
+        
+        if (currentUser.length > 0) await USER.findOneAndUpdate({ _id : currentUser[0].userId }, { lastOnline : new Date().toLocaleString() })
         socket.broadcast.emit("getLastOnline")
         onlineUsers = onlineUsers.filter((users) => users.socketId !== socket.id);
 
